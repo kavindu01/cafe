@@ -23,6 +23,38 @@
     set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
   };
 
+  /* ---------- Photos ----------
+     Unsplash IDs become sized image URLs; anything else is treated as a
+     local file path. Images fade in when loaded. If one fails, it is removed
+     and the gradient placeholder underneath shows instead. */
+  const PHOTOS = window.PHOTOS || {};
+  const unsplash = (id, w) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=75`;
+  function img(key, w, alt) {
+    const p = PHOTOS[key];
+    if (!p) return "";
+    const a = esc(alt || "");
+    if (!p.id.startsWith("photo-")) return `<img src="${esc(p.id)}" alt="${a}" loading="lazy" decoding="async">`;
+    return `<img src="${unsplash(p.id, w)}" srcset="${unsplash(p.id, w)} 1x, ${unsplash(p.id, w * 2)} 2x" alt="${a}" loading="lazy" decoding="async">`;
+  }
+  document.addEventListener("load", (e) => { if (e.target.tagName === "IMG") e.target.classList.add("loaded"); }, true);
+  document.addEventListener("error", (e) => { if (e.target.tagName === "IMG" && e.target.closest(".ph")) e.target.remove(); }, true);
+  function markLoaded() { $$(".ph img").forEach((i) => { if (i.complete && i.naturalWidth) i.classList.add("loaded"); }); }
+  function fillPhotoSlots() {
+    const map = window.PAGE_PHOTOS || {};
+    $$("[data-photo]").forEach((el) => {
+      el.innerHTML = img(map[el.dataset.photo], Number(el.dataset.w) || 600, el.dataset.alt);
+    });
+  }
+  function photoCredits() {
+    const seen = new Map();
+    Object.values(PHOTOS).forEach((p) => { if (p.by && p.page && !seen.has(p.by)) seen.set(p.by, p.page); });
+    if (!seen.size) return "";
+    const links = [...seen].map(([by, page]) =>
+      `<a href="https://unsplash.com/photos/${esc(page)}" target="_blank" rel="noopener">${esc(by)}</a>`).join(", ");
+    return `<details class="credits"><summary>Photo credits</summary>
+      <p>Photos by ${links} on <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>.</p></details>`;
+  }
+
   /* ==========================================================
      1. LOADING SCREEN
      ========================================================== */
@@ -242,6 +274,7 @@
             <span>© ${new Date().getFullYear()} ${esc(S.name)}. All rights reserved.</span>
             <span>Website by Arcane Technologies</span>
           </div>
+          ${photoCredits()}
         </div>
       </footer>
       <a class="chat-fab" href="sms:${tel}">💬 Text us</a>`;
@@ -318,7 +351,7 @@
   function renderSpecials(target) {
     target.innerHTML = S.specials.map((s) => `
       <article class="card reveal">
-        <div class="card-media"><div class="ph ${s.ph}">Photo</div></div>
+        <div class="card-media"><div class="ph ${s.ph}">${img(s.img, 420, s.title)}</div></div>
         <div class="card-body"><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p>
           <div class="card-foot"><span class="price">${esc(s.price)}</span><span class="tag">${esc(s.tag)}</span></div>
         </div>
@@ -385,7 +418,7 @@
       renderSpecials($("#specialsGrid"));
       $("#socialGrid").innerHTML = S.social.map((p) => `
         <a class="social-tile reveal" href="${esc(S.instagram)}" target="_blank" rel="noopener">
-          <div class="ph ${p.ph}"></div><div class="overlay">${esc(p.cap)}</div></a>`).join("");
+          <div class="ph ${p.ph}">${img(p.img, 360, p.cap)}</div><div class="overlay">${esc(p.cap)}</div></a>`).join("");
       $$("[data-insta]").forEach((a) => { a.href = S.instagram; a.textContent = S.instagramHandle; });
       renderReviews();
       const h = S.hours[new Date().getDay()];
@@ -414,11 +447,14 @@
           if (!items.length) return "";
           return `<div class="menu-panel reveal in" id="${slug(c.category)}" style="margin-bottom:48px">
             <h2>${esc(c.category)}</h2>${c.note ? `<p class="menu-note">${esc(c.note)}</p>` : ""}
-            <div class="menu-list">${items.map((it) => `
-              <div class="menu-item">
-                <div class="menu-item-top"><h3>${esc(it.name)}${it.diet.length ? `<span class="diet">${it.diet.map((d) => `<span>${d}</span>`).join("")}</span>` : ""}</h3>
-                <span class="leader"></span><span class="price">${esc(it.price)}</span></div>
-                ${it.desc ? `<p>${esc(it.desc)}</p>` : ""}
+            <div class="menu-list">${items.map((it, n) => `
+              <div class="menu-item${it.img ? " has-thumb" : ""}">
+                ${it.img ? `<div class="menu-thumb ph ph-${(n % 6) + 1}">${img(it.img, 160, it.name)}</div>` : ""}
+                <div class="menu-body">
+                  <div class="menu-item-top"><h3>${esc(it.name)}${it.diet.length ? `<span class="diet">${it.diet.map((d) => `<span>${d}</span>`).join("")}</span>` : ""}</h3>
+                  <span class="leader"></span><span class="price">${esc(it.price)}</span></div>
+                  ${it.desc ? `<p>${esc(it.desc)}</p>` : ""}
+                </div>
               </div>`).join("")}</div></div>`;
         }).join("");
         empty.style.display = shown ? "none" : "block";
@@ -445,6 +481,7 @@
       $("#packages").innerHTML = S.catering.map((p) => `
         <div class="package reveal${p.featured ? " featured" : ""}">
           ${p.featured ? '<span class="badge">Most popular</span>' : ""}
+          ${p.img ? `<div class="package-media ph ph-3">${img(p.img, 520, p.name)}</div>` : ""}
           <h3>${esc(p.name)}</h3><div class="price">${esc(p.price)}</div><div class="serves">${esc(p.serves)}</div>
           <ul>${p.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
           <a href="#enquire" class="btn ${p.featured ? "btn-primary" : "btn-ghost"}" data-pick="${esc(p.name)}">Enquire about this</a>
@@ -496,6 +533,8 @@
   initMobileMenu();
   initPageTransitions();
   initForms();
+  fillPhotoSlots();
   if (pages[page]) pages[page]();
+  markLoaded();
   runLoader(initReveal);
 })();

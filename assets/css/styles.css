@@ -146,6 +146,9 @@ section{padding:88px 0}
 .page-hero h1{font-size:clamp(2.3rem,5.5vw,3.8rem);margin:.5rem 0 .8rem}
 .page-hero p{color:var(--muted);max-width:560px;font-size:1.08rem}
 .crumbs{font-size:.85rem;color:var(--muted)}
+.page-hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center}
+.page-hero-media{aspect-ratio:4/3;border-radius:24px;box-shadow:var(--shadow)}
+@media (max-width:800px){.page-hero-grid{grid-template-columns:1fr;gap:28px}.page-hero-media{aspect-ratio:16/9}}
 .crumbs a:hover{color:var(--brand)}
 
 /* ---------- Home hero ---------- */
@@ -168,6 +171,9 @@ section{padding:88px 0}
 
 /* Photo placeholders: swap .ph for <img src="..."> when you have real photos */
 .ph{width:100%;height:100%;display:grid;place-items:center;color:rgba(255,255,255,.92);font-weight:600;text-align:center;font-size:.9rem;letter-spacing:.04em}
+.ph{position:relative;overflow:hidden}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
+.ph img.loaded{opacity:1}
 .ph-1{background:radial-gradient(circle at 30% 30%,#e9a46f,#9c4423 60%,#4a1f10)}
 .ph-2{background:radial-gradient(circle at 70% 20%,#9fd1b8,#2f5d50 65%,#17312a)}
 .ph-3{background:radial-gradient(circle at 40% 70%,#f1d08a,#c27b2e 60%,#6b3c12)}
@@ -176,7 +182,7 @@ section{padding:88px 0}
 .ph-6{background:radial-gradient(circle at 80% 70%,#e8d5b9,#9c7a52 60%,#43321f)}
 
 /* ---------- Explore tiles (home) ---------- */
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .tile{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;display:block}
 .tile .ph{position:absolute;inset:0;transition:transform .5s}
 .tile:hover .ph{transform:scale(1.05)}
@@ -187,7 +193,7 @@ section{padding:88px 0}
 
 /* ---------- Cards ---------- */
 .tinted{background:var(--surface-2)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .25s,box-shadow .25s}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .card-media{aspect-ratio:4/3}
@@ -212,6 +218,9 @@ section{padding:88px 0}
 .menu-note{color:var(--muted);margin:.3rem 0 1.4rem}
 .menu-list{display:grid;grid-template-columns:1fr 1fr;gap:4px 48px}
 .menu-item{padding:1rem 0;border-bottom:1px dashed var(--line)}
+.menu-item.has-thumb{display:grid;grid-template-columns:76px 1fr;gap:16px;align-items:center}
+.menu-thumb{width:76px;height:76px;border-radius:16px}
+.menu-body{min-width:0}
 .menu-item-top{display:flex;align-items:baseline;gap:.6rem}
 .menu-item-top h3{font-size:1.12rem}
 .menu-item-top .leader{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-4px)}
@@ -223,10 +232,11 @@ section{padding:88px 0}
 @media (max-width:800px){.menu-list{grid-template-columns:1fr}.search{width:100%}}
 
 /* ---------- Catering / packages ---------- */
-.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.packages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:stretch}
 .package{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:30px;display:flex;flex-direction:column;position:relative}
 .package.featured{border:2px solid var(--brand);box-shadow:var(--shadow)}
 .package .badge{position:absolute;top:-13px;left:30px;background:var(--brand);color:var(--brand-ink);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:999px}
+.package-media{width:100%;min-width:0;aspect-ratio:16/10;border-radius:16px;margin-bottom:1.2rem}
 .package h3{font-size:1.5rem}
 .package .price{font-size:1.3rem;margin:.4rem 0 .1rem}
 .package .serves{color:var(--muted);font-size:.85rem}
@@ -325,6 +335,10 @@ section{padding:88px 0}
 .site-footer ul{list-style:none;display:grid;gap:.5rem;font-size:.92rem}
 .site-footer a:hover{color:#fff}
 .foot-bottom{border-top:1px solid #3a312a;margin-top:44px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;font-size:.82rem;color:#9e9186}
+.credits{margin-top:14px;font-size:.78rem;color:#9e9186}
+.credits summary{cursor:pointer;width:max-content}
+.credits p{margin-top:.5rem;line-height:1.7}
+.credits a{text-decoration:underline;text-underline-offset:2px}
 @media (max-width:800px){.foot-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:500px){.foot-grid{grid-template-columns:1fr}}
 
