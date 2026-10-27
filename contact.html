@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact · Lantern House</title>
+<meta name="description" content="Find us, check today's hours, or send us a message.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<noscript><style>.loader{display:none}.reveal{opacity:1;transform:none}body.is-loading{overflow:auto}</style></noscript>
+</head>
+<body data-page="contact" class="is-loading">
+<div class="loader" id="loader"></div>
+<div id="site-header"></div>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Home</a> / Contact</div>
+      <h1>Visit &amp; Contact</h1>
+      <p>No bookings needed, just walk in. For anything else, send us a message below.</p>
+      <span class="status" data-status style="margin-top:1.2rem"><span class="dot"></span><span class="status-text">Checking hours…</span></span>
+    </div>
+  </section>
+
+  <!-- LOCATION & HOURS -->
+  <section>
+    <div class="wrap loc-grid">
+      <div class="loc-card reveal">
+        <h3 id="suburb">Your Suburb</h3>
+        <p style="color:var(--muted)" id="addressText"></p>
+        <ul class="hours" id="hoursList"></ul>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+          <a class="btn btn-primary" id="directionsBtn" href="#" target="_blank" rel="noopener">Get directions</a>
+          <a class="btn btn-ghost" id="callBtn" href="#">Call us</a>
+        </div>
+      </div>
+      <div class="map reveal"><iframe id="mapFrame" title="Map showing the café location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="tinted">
+    <div class="wrap two-col" style="align-items:start">
+      <div class="reveal">
+        <span class="eyebrow">Get in touch</span>
+        <h2 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:.35rem 0 .6rem">Send us a message</h2>
+        <p style="color:var(--muted)">Questions about the menu, allergies, gift cards or anything else. We reply within one business day.</p>
+        <p style="margin-top:1rem">Or email <a data-email href="#" style="color:var(--brand);font-weight:600"></a></p>
+      </div>
+      <form class="form-card reveal" data-form="contact" data-subject="Website message">
+        <div class="form-grid">
+          <div class="field"><label for="m-name">Name</label><input id="m-name" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="m-email">Email</label><input id="m-email" name="email" type="email" required autocomplete="email"></div>
+          <div class="field full"><label for="m-topic">Topic</label>
+            <select id="m-topic" name="topic"><option>General question</option><option>Allergies &amp; dietary</option><option>Gift cards</option><option>Feedback</option></select></div>
+          <div class="field full"><label for="m-msg">Message</label><textarea id="m-msg" name="message" required></textarea></div>
+        </div>
+        <button class="btn btn-primary" type="submit" style="margin-top:1.2rem">Send message →</button>
+        <p class="form-msg" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- CAREERS -->
+  <section>
+    <div class="wrap">
+      <div class="band reveal">
+        <div><h2>We're hiring.</h2><p>Baristas, kitchen hands and floor staff. Send your resume and availability.</p></div>
+        <a href="#" data-email class="btn btn-primary"></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

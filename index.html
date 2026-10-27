@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lantern House · Café</title>
+<meta name="description" content="Neighbourhood café for specialty coffee and all-day plates. Open 7 days, walk-ins welcome.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<noscript><style>.loader{display:none}.reveal{opacity:1;transform:none}body.is-loading{overflow:auto}</style></noscript>
+</head>
+<body data-page="home" class="is-loading">
+<div class="loader" id="loader"></div>
+<div id="site-header"></div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="status" data-status><span class="dot"></span><span class="status-text">Checking hours…</span></span>
+        <h1>Slow mornings, <em>bold</em> flavours.</h1>
+        <p class="lead">An all-day neighbourhood café pouring specialty coffee and cooking seasonal plates. Open 7 days, walk-ins always welcome.</p>
+        <div class="hero-cta">
+          <a href="menu.html" class="btn btn-primary">View menu →</a>
+          <a href="catering.html" class="btn btn-ghost">Catering &amp; events</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>7</strong><span>days a week</span></div>
+          <div><strong>100%</strong><span>walk-ins</span></div>
+          <div><strong>Local</strong><span>roasted beans</span></div>
+        </div>
+      </div>
+      <div class="hero-media reveal">
+        <!-- REPLACE: <img src="assets/img/hero.jpg" alt="Describe the photo" style="width:100%;height:100%;object-fit:cover"> -->
+        <div class="ph ph-1">Hero photo<br>(replace)</div>
+        <div class="hero-badge"><b>☕ Today's pour</b>Single-origin filter</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORE -->
+  <section class="tinted">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Explore</span>
+        <h2>Something for every visit</h2>
+      </div>
+      <div class="tiles">
+        <a class="tile reveal" href="menu.html"><div class="ph ph-3"></div><div class="tile-body"><h3>The Menu</h3><span>Breakfast, lunch, coffee &amp; sweets →</span></div></a>
+        <a class="tile reveal" href="catering.html"><div class="ph ph-2"></div><div class="tile-body"><h3>Catering</h3><span>Platters &amp; coffee carts for any crowd →</span></div></a>
+        <a class="tile reveal" href="rewards.html"><div class="ph ph-4"></div><div class="tile-body"><h3>Rewards</h3><span>Every 10th coffee is on us →</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALS -->
+  <section>
+    <div class="wrap">
+      <div class="split-head reveal">
+        <div class="section-head">
+          <span class="eyebrow">Seasonal specials</span>
+          <h2>What's new on the counter</h2>
+          <p>A rotating line-up from our kitchen.</p>
+        </div>
+        <a href="menu.html" class="btn btn-ghost">Full menu →</a>
+      </div>
+      <div class="cards" id="specialsGrid"></div>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="tinted">
+    <div class="wrap">
+      <div class="split-head reveal">
+        <div class="section-head">
+          <span class="eyebrow">Follow along</span>
+          <h2>Fresh from the feed</h2>
+          <p>Daily specials and behind-the-scenes moments.</p>
+        </div>
+        <a href="#" class="btn btn-ghost" data-insta target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <!-- For a live Instagram feed, replace this grid with an embed widget (e.g. Behold, Elfsight or SnapWidget). -->
+      <div class="social-grid" id="socialGrid"></div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section>
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Kind words</span>
+        <h2>What guests are saying</h2>
+      </div>
+      <div class="review-slider reveal"><div class="review-track" id="reviewTrack"></div></div>
+      <div class="slider-dots" id="reviewDots"></div>
+      <p class="placeholder-note">Sample text, replace with real reviews (with the reviewer's permission) or a Google Reviews widget.</p>
+    </div>
+  </section>
+
+  <!-- VISIT BAND -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="band reveal">
+        <div>
+          <h2>Pull up a chair.</h2>
+          <p id="todayHours">Open 7 days</p>
+        </div>
+        <a href="contact.html" class="btn btn-primary">Location &amp; hours →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

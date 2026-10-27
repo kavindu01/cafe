@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu · Lantern House</title>
+<meta name="description" content="Breakfast, lunch, coffee, tea and house-baked sweets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<noscript><style>.loader{display:none}.reveal{opacity:1;transform:none}body.is-loading{overflow:auto}</style></noscript>
+</head>
+<body data-page="menu" class="is-loading">
+<div class="loader" id="loader"></div>
+<div id="site-header"></div>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Home</a> / Menu</div>
+      <h1>Our Menu</h1>
+      <p>Cooked fresh from open to close. Tell the team about any allergies when you order and we'll look after you.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="menu-tools">
+        <div class="tabs" id="menuTabs" role="tablist" aria-label="Menu categories"></div>
+        <input class="search" id="menuSearch" type="search" placeholder="Search the menu…" aria-label="Search the menu">
+      </div>
+      <div class="diet-filters" style="margin-bottom:36px">
+        <span>Show only:</span>
+        <button class="chip" data-diet="V" aria-pressed="false">Vegetarian</button>
+        <button class="chip" data-diet="VG" aria-pressed="false">Vegan</button>
+        <button class="chip" data-diet="GF" aria-pressed="false">Gluten free</button>
+      </div>
+
+      <div id="menuPanel"></div>
+      <p class="menu-empty" id="menuEmpty">Nothing matches those filters. Try removing one.</p>
+
+      <p class="menu-key">V = vegetarian · VG = vegan · GF = gluten free. Our kitchen handles gluten, nuts, dairy and eggs, so we can't guarantee any dish is free of traces.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="band reveal">
+        <div><h2>Feeding a crowd?</h2><p>Platters, lunch boxes and coffee carts for offices and celebrations.</p></div>
+        <a href="catering.html" class="btn btn-primary">See catering →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

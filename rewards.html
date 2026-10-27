@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rewards · Lantern House</title>
+<meta name="description" content="Join the Lantern House rewards club: a welcome drink, every 10th coffee free and a birthday treat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<noscript><style>.loader{display:none}.reveal{opacity:1;transform:none}body.is-loading{overflow:auto}</style></noscript>
+</head>
+<body data-page="rewards" class="is-loading">
+<div class="loader" id="loader"></div>
+<div id="site-header"></div>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Home</a> / Rewards</div>
+      <h1>Rewards Club</h1>
+      <p>Free to join, lives in your phone's wallet, and starts paying back from your very first visit.</p>
+    </div>
+  </section>
+
+  <!-- PERKS + STAMP DEMO -->
+  <section>
+    <div class="wrap two-col">
+      <div class="reveal">
+        <span class="eyebrow">Member perks</span>
+        <h2 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:.35rem 0 .6rem">Perks for our regulars</h2>
+        <div class="perks">
+          <div class="perk"><span class="ico">🎁</span><b>Welcome drink</b><span>On us when you sign up</span></div>
+          <div class="perk"><span class="ico">☕</span><b>10th coffee free</b><span>Collect 9 stamps</span></div>
+          <div class="perk"><span class="ico">🎂</span><b>Birthday treat</b><span>A little surprise</span></div>
+          <div class="perk"><span class="ico">⚡</span><b>First taste</b><span>Early access to new items</span></div>
+        </div>
+        <a href="#" class="btn btn-primary" data-join>Join the club →</a>
+      </div>
+      <div class="stamp-card reveal">
+        <h3>Try the stamp card</h3>
+        <p>Tap a cup to stamp it. This is a demo of what members see.</p>
+        <div class="stamps" id="stamps"></div>
+        <p class="stamp-msg" id="stampMsg" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="tinted">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">How it works</span>
+        <h2>Sign up in under a minute</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><h3>Join online</h3><p>Tap Join the club and add your card to Apple Wallet or Google Wallet.</p></div>
+        <div class="step reveal"><h3>Show it at the counter</h3><p>We scan your card with every order, so there's nothing to remember.</p></div>
+        <div class="step reveal"><h3>Collect your treats</h3><p>Your free coffee and birthday treat are applied automatically.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Questions</span>
+        <h2>Good to know</h2>
+      </div>
+      <div class="faq" id="faq"></div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
