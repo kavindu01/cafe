@@ -50,7 +50,7 @@ section{padding:88px 0}
 .loader{position:fixed;inset:0;z-index:999;background:var(--bg);display:grid;place-items:center;transition:opacity .6s ease,transform .7s cubic-bezier(.7,0,.2,1)}
 .loader.is-hidden{opacity:0;transform:translateY(-100%)}
 .loader-inner{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:16px;text-align:center}
-.loader svg{width:min(240px,62vw);height:auto;overflow:visible}
+.loader .pour-svg{width:min(240px,62vw);height:auto;overflow:visible}
 .loader .stroke{fill:none;stroke:var(--text);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .loader .kettle-body{fill:var(--surface-2)}
 .loader .cup-fill{fill:var(--surface)}
@@ -70,6 +70,36 @@ section{padding:88px 0}
 .loader-status{font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums}
 .loader-bar{width:180px;height:4px;border-radius:999px;background:var(--line);overflow:hidden}
 .loader-bar span{display:block;height:100%;width:0;background:var(--brand);border-radius:inherit}
+/* ---------- Loader B: bouncing, orbiting coffee bean (inner pages) ---------- */
+.bean-stage{position:relative;width:160px;height:160px}
+.bean-ring{position:absolute;inset:0;width:100%;height:100%}
+.bean-ring circle{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:3 7;animation:ringSpin 12s linear infinite reverse;transform-origin:80px 80px}
+.bean-center{position:absolute;inset:0;display:grid;place-items:center}
+.bean-center .logo-mark{width:46px;height:46px;font-size:1.3rem;animation:pulse 1.2s ease-in-out infinite}
+.bean-orbit{position:absolute;inset:0;animation:orbit 1.8s linear infinite}
+.bean-arm{position:absolute;left:50%;top:50%;width:0;height:0;transform:translateY(-56px)}
+.bean-hop{position:absolute;left:-15px;top:-20px;width:30px;height:40px;transform-origin:50% 100%;animation:hop .45s cubic-bezier(.4,0,.6,1) infinite}
+.bean{width:100%;height:100%;overflow:visible;animation:tumble .9s linear infinite}
+.bean ellipse{fill:var(--coffee);stroke:var(--text);stroke-width:2.5}
+.bean path{fill:none;stroke:var(--crema);stroke-width:3;stroke-linecap:round}
+.loader--bean .loader-status .dots i{font-style:normal;animation:dot 1.2s infinite}
+.loader--bean .loader-status .dots i:nth-child(2){animation-delay:.2s}
+.loader--bean .loader-status .dots i:nth-child(3){animation-delay:.4s}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+@keyframes hop{
+  0%,100%{transform:translateY(0) scale(1.18,.82)}   /* squash on landing */
+  15%{transform:translateY(-4px) scale(.92,1.1)}     /* stretch on take-off */
+  50%{transform:translateY(-22px) scale(1,1)}        /* top of the bounce */
+  85%{transform:translateY(-4px) scale(.94,1.08)}
+}
+@keyframes tumble{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{transform:scale(.9)}}
+@keyframes dot{0%,60%,100%{opacity:.2}30%{opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .bean-orbit,.bean-hop,.bean,.bean-ring circle,.bean-center .logo-mark,.loader--bean .loader-status .dots i{animation:none}
+}
+
 @keyframes flow{to{stroke-dashoffset:-18}}
 @keyframes wave{to{transform:translateX(-24px)}}
 @keyframes tilt{from{transform:rotate(0)}to{transform:rotate(18deg)}}

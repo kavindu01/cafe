@@ -33,20 +33,78 @@
     return { line: d, fill: `${d} V${depth} H48 Z` };
   }
 
+  /* Hides the loader and hands over to the page. Shared by both loaders. */
+  function hideLoader(el, onDone, holdMs) {
+    el.classList.add("is-done");
+    setTimeout(() => {
+      el.classList.add("is-hidden");
+      document.body.classList.remove("is-loading");
+      onDone();
+      setTimeout(() => el.remove(), 750);
+    }, reduceMotion ? 0 : holdMs);
+  }
+
+  /* Picks the loader: coffee pour on Home, bouncing bean everywhere else. */
   function runLoader(onDone) {
     const el = $("#loader");
     if (!el) { onDone(); return; }
+    el.setAttribute("role", "status");
+    if (page === "home") runPourLoader(el, onDone);
+    else runBeanLoader(el, onDone);
+  }
 
-    const firstVisit = !store.get("lh-visited");
-    store.set("lh-visited", "1");
-    const duration = reduceMotion ? 250 : (firstVisit ? S.loader.firstVisitMs : S.loader.repeatVisitMs);
+  /* ---------- Loader B: coffee bean bouncing around a ring (inner pages) ---------- */
+  function runBeanLoader(el, onDone) {
+    const label = (NAV.find(([id]) => id === page) || [, , "page"])[2];
+    el.setAttribute("aria-label", `Loading ${label}`);
+    el.classList.add("loader--bean");
+    el.innerHTML = `
+      <div class="loader-inner">
+        <div class="bean-stage" aria-hidden="true">
+          <svg class="bean-ring" viewBox="0 0 160 160"><circle cx="80" cy="80" r="56"/></svg>
+          <div class="bean-center"><span class="logo-mark">✺</span></div>
+          <div class="bean-orbit">
+            <div class="bean-arm">
+              <div class="bean-hop">
+                <svg class="bean" viewBox="0 0 40 52">
+                  <ellipse cx="20" cy="26" rx="16" ry="22"/>
+                  <path d="M20 6 C10 18 30 34 20 46"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="loader-brand">${esc(S.name)}</div>
+        <div class="loader-status">Loading ${esc(label)}<span class="dots"><i>.</i><i>.</i><i>.</i></span></div>
+      </div>`;
+
+    const minMs = reduceMotion ? 250 : S.loader.pageMs;
+    const start = performance.now();
+    let pageLoaded = document.readyState === "complete";
+    const done = () => {
+      const wait = Math.max(0, minMs - (performance.now() - start));
+      setTimeout(() => hideLoader(el, onDone, 150), wait);
+    };
+    if (pageLoaded) done();
+    else {
+      let fired = false;
+      const once = () => { if (!fired) { fired = true; done(); } };
+      window.addEventListener("load", once);
+      setTimeout(once, 6000); // never hang on a slow asset
+    }
+  }
+
+  /* ---------- Loader A: coffee pour (Home page) ---------- */
+  function runPourLoader(el, onDone) {
+    const firstVisit = !store.get("lh-home-visited");
+    store.set("lh-home-visited", "1");
+    const duration = reduceMotion ? 250 : (firstVisit ? S.loader.homeFirstMs : S.loader.homeRepeatMs);
     const w = wavePath(168, 90);
 
-    el.setAttribute("role", "status");
     el.setAttribute("aria-label", `Loading ${S.name}`);
     el.innerHTML = `
       <div class="loader-inner">
-        <svg viewBox="0 0 220 230" aria-hidden="true">
+        <svg class="pour-svg" viewBox="0 0 220 230" aria-hidden="true">
           <defs>
             <clipPath id="cupClip"><path d="M90 128 H174 L166 190 Q164 200 152 200 H112 Q100 200 98 190 Z"/></clipPath>
           </defs>
@@ -117,14 +175,7 @@
 
     function finish() {
       stream.style.transition = "opacity .25s"; stream.setAttribute("opacity", "0");
-      el.classList.add("is-done");
-      const hold = reduceMotion ? 0 : (firstVisit ? 700 : 250);
-      setTimeout(() => {
-        el.classList.add("is-hidden");
-        document.body.classList.remove("is-loading");
-        onDone();
-        setTimeout(() => el.remove(), 750);
-      }, hold);
+      hideLoader(el, onDone, firstVisit ? 700 : 250);
     }
     requestAnimationFrame(frame);
   }

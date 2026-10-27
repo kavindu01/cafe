@@ -19,9 +19,11 @@ window.SITE = {
      email app with the details filled in instead. */
   formEndpoint: "",
 
-  /* Loading screen: full pour on the first page of a visit,
-     a quick pour on every page after that. Times in milliseconds. */
-  loader: { firstVisitMs: 2400, repeatVisitMs: 900 },
+  /* Loading screens (times in milliseconds, minimum on-screen time).
+     Home page: coffee pour — full pour on the first visit of a session,
+                quick pour when you come back to Home.
+     Other pages: coffee bean bouncing around a ring. */
+  loader: { homeFirstMs: 2400, homeRepeatMs: 900, pageMs: 1100 },
 
   announcement: [
     "Open 7 days a week",
